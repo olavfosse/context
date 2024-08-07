@@ -1,0 +1,48 @@
+Dear library maintainers, please do not include these or equivalent
+transducers in your library quite yet. I'm putting a lot of thought
+and effort into getting the API just right, which would be a waste if
+subpar or inconsistent APIs are what the libraries end up
+exposing. Your feedback however, is much appreciated. Thanks!
+
+---
+
+There's two potential output formats:
+
+- vector spans of continously forwarded elements
+- separator value separating each continous span
+
+I originally just forwarded the concattenation of all the spans. I
+think this is a mistake because it tends to be useful to know the
+boundaries, for example in grep -C it is useful that each span is
+separated by a "--".
+
+#+begin_quote
+$ grep -C 1 defonce -R SaaS/anymentions.ai/anymentions.clj | head
+(do
+  (defonce nrepl-server (do (tm/log! "startin nrepl on localhost:3030")
+                            (nrepl/start-server :port 3030 :handler cider-nrepl-handler))))
+--
+  (System/getProperty "user.dir")
+  (defonce dat (d/client {:server-type :datomic-local
+                          :system "anymentions.ai"
+--
+  (d/create-database dat {:db-name "anymentions.ai"})
+  (defonce conn (d/connect dat {:db-name "anymentions.ai"}))
+#+end_quote
+
+I could do (context n pred separator), to allow the user to provide
+his/her own domain specific separator, e.g:
+
+(transduce (context n pred "--") #(println %) nil (line-seq "logs"))
+
+Then I could default to forwarding vector spans. This is simple and
+conveinient for the majority of use cases. In some cases it might
+warrant (filter (partial not= sep)). I think that's fine or at least
+better than having three output formats.
+
+#+begin_src clojure
+  (defn context
+    ([n pred] (comp (partition-by (partial = ::separator))
+		    (filter (partial not= [::separator]))))
+    ([n pred separator] ...))
+#+end_src
