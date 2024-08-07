@@ -4,6 +4,7 @@
 ;; I think hand compiling this from a state machine might be the way
 ;; to go..
 (ns no.olavfosse.context
+  (:require [net.cgrand.xforms.io :refer [lines-in lines-out] :as xio])
   (:import java.util.LinkedList))
 
 (defn pretext
@@ -44,8 +45,9 @@
                   (let [rv (rf acc trail-inp)]
                     (if (reduced? rv) rv (recur rv)))
                   (rf acc inp)))))))))))
+
 (comment
-  ;; Check out xforms' lines-in
+  ;; Check out xforms' lines-in and lines-out
   (transduce (comp
               (map-indexed str)
               (pretext 1 (partial re-matches #".*fn.*")  "--"))
