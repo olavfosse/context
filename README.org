@@ -16,7 +16,7 @@ think this is a mistake because it tends to be useful to know the
 boundaries, for example in grep -C it is useful that each span is
 separated by a "--".
 
-#+begin_quote
+#+begin_src
 $ grep -C 1 defonce -R SaaS/anymentions.ai/anymentions.clj | head
 (do
   (defonce nrepl-server (do (tm/log! "startin nrepl on localhost:3030")
@@ -28,7 +28,7 @@ $ grep -C 1 defonce -R SaaS/anymentions.ai/anymentions.clj | head
 --
   (d/create-database dat {:db-name "anymentions.ai"})
   (defonce conn (d/connect dat {:db-name "anymentions.ai"}))
-#+end_quote
+#+end_src
 
 I could do (context n pred separator), to allow the user to provide
 his/her own domain specific separator, e.g:
