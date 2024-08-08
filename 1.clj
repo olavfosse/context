@@ -7,6 +7,7 @@
   (:require [net.cgrand.xforms.io :refer [lines-in lines-out] :as xio])
   (:import java.util.LinkedList))
 
+;; Trailing
 (defn pretext
   "Returns a stateful transducer which forwards all elements matching
   pred as well as elements which come at most n elements before. Each
@@ -61,6 +62,7 @@
    []
    (line-seq (clojure.java.io/reader *file*))))
 
+;; Leading and trailing
 (defn context
   "Returns a stateful transducer which forwards all elements matching
   pred as well as elements which come at most n elements before or
@@ -90,7 +92,7 @@
                (.addFirst context-trail inp)
                (when (= (.size context-trail) (inc n)) (.removeLast context-trail))
                acc))))))))
-
+;; Leading
 (defn postext
   "Returns a stateful transducer which forwards all elements matching
   pred as well as elements which come at most n elements before or
