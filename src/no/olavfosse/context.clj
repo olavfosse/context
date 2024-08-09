@@ -110,7 +110,8 @@
           (vswap! !inputs-since-match inc)
           (cond
             (pred inp) (let [acc (cond-> acc
-                                   (> @!inputs-since-match (inc n)) (rf separator))]
+                                   (and (not= @!inputs-since-match ##Inf)
+                                        (> @!inputs-since-match (inc n))) (rf separator))]
                          (vreset! !inputs-since-match 0)
                          (rf acc inp))
             (<= @!inputs-since-match n) (rf acc inp)
