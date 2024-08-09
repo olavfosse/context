@@ -1,8 +1,8 @@
-Dear library maintainers, please do not include these or equivalent
-transducers in your library quite yet. I'm putting a lot of thought
-and effort into getting the API just right, which would be a waste if
-subpar or inconsistent APIs are what the libraries end up
-exposing. Your feedback however, is much appreciated. Thanks!
+Dear library maintainers, please do not include these transducers in
+your library quite yet. I'm putting a lot of thought and effort into
+getting the API just right, which would be a waste if subpar or
+inconsistent APIs are what the libraries end up exposing. Your
+feedback however, is much appreciated. Thanks!
 
 ---
 
