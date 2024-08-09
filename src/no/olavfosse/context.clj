@@ -10,7 +10,6 @@
 ;; I think hand compiling this from a state machine might be the way
 ;; to go..
 (ns no.olavfosse.context
-  (:require [net.cgrand.xforms.io :refer [lines-in lines-out] :as xio])
   (:import java.util.LinkedList))
 
 (defn pretext
@@ -59,23 +58,12 @@
                     (if (reduced? rv) rv (recur rv)))
                   (rf acc inp)))))))))))
 
-(comment
-  (transduce (comp
-              (map-indexed str)
-              (pretext 1 (partial re-matches #".*fn.*")  "--"))
-             (completing #(println %2))
-             nil
-             (line-seq (clojure.java.io/reader *file*)))
 
-  (transduce
-   (pretext 3 (partial re-matches #".*fn.*") :separator)
-   conj
-   []
-   (line-seq (clojure.java.io/reader *file*))))
 
 ;; Leading and trailing
 (defn context
-  "Returns a stateful transducer which forwards all elements matching
+  "TODO: teach context to have the same arities as pretext/postext"
+  #_"Returns a stateful transducer which forwards all elements matching
   pred as well as elements which come at most n elements before or
   after. Each contionous span of forwarded elements is delivered as a
   vector. If separator is passed the elements are forwarded directly,
@@ -129,16 +117,4 @@
             :else acc)))))))
 
 
-(comment
-  (transduce (comp
-              (map-indexed str)
-              (postext 6 (partial re-matches #".*fn.*")  "--"))
-             (completing #(println %2))
-             nil
-             (line-seq (clojure.java.io/reader *file*)))
 
-  (transduce
-   (postext 3 (partial re-matches #".*fn.*") :separator)
-   conj
-   []
-   (line-seq (clojure.java.io/reader *file*))))
