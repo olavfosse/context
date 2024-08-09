@@ -1,1 +1,2 @@
-{:deps {net.cgrand/xforms {:mvn/version "0.19.6"}}}
+{:deps {net.cgrand/xforms {:mvn/version "0.19.6"}}
+ :paths ["src"]}
