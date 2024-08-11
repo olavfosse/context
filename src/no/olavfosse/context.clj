@@ -140,9 +140,6 @@
 
 
 
-
-(def =1 (partial = 1))
-
 ;; generate tests
 (for [n (range 0 10)] 
   {:input (vec (take n (shuffle (concat (repeat 10 0) (repeat 5 1)))))
@@ -153,7 +150,7 @@
    (list 'context 1 '=1) nil
    (list 'context 1 '=1 :sep) nil})
 
-
+(def =1 (partial = 1))
 
 (def tt '({:input [],
            (pretext 1 =1) [],
@@ -184,45 +181,45 @@
            (context 1 =1) [[1 1 0]],
            (context 1 =1 :sep) [1 1 0]}
           {:input [0 1 0 0],
-           (pretext 1 =1) nil,
-           (pretext 1 =1 :sep) nil,
-           (postext 1 =1) nil,
-           (postext 1 =1 :sep) nil,
-           (context 1 =1) nil,
-           (context 1 =1 :sep) nil}
+           (pretext 1 =1) [[0 1]],
+           (pretext 1 =1 :sep) [0 1],
+           (postext 1 =1) [[1 0]],
+           (postext 1 =1 :sep) [1 0],
+           (context 1 =1) [[0 1 0]],
+           (context 1 =1 :sep) [0 1 0]}
           {:input [0 1 0 0 1],
-           (pretext 1 =1) nil,
-           (pretext 1 =1 :sep) nil,
-           (postext 1 =1) nil,
-           (postext 1 =1 :sep) nil,
-           (context 1 =1) nil,
-           (context 1 =1 :sep) nil}
+           (pretext 1 =1) [[0 1] [0 1]],
+           (pretext 1 =1 :sep) [0 1 :sep 0 1],
+           (postext 1 =1) [[1 0] [1]],
+           (postext 1 =1 :sep) [1 0 :sep 1],
+           (context 1 =1) [[0 1 0] [0 1]],
+           (context 1 =1 :sep) [0 1 0 :sep 0 1]}
           {:input [1 1 1 0 0 0],
-           (pretext 1 =1) nil,
-           (pretext 1 =1 :sep) nil,
-           (postext 1 =1) nil,
-           (postext 1 =1 :sep) nil,
-           (context 1 =1) nil,
-           (context 1 =1 :sep) nil}
+           (pretext 1 =1) [[1 1 1]],
+           (pretext 1 =1 :sep) [1 1 1],
+           (postext 1 =1) [[1 1 1 0]],
+           (postext 1 =1 :sep) [1 1 1 0],
+           (context 1 =1) [[1 1 1 0]],
+           (context 1 =1 :sep) [1 1 1 0]}
           {:input [0 0 0 0 0 0 1],
-           (pretext 1 =1) nil,
-           (pretext 1 =1 :sep) nil,
-           (postext 1 =1) nil,
-           (postext 1 =1 :sep) nil,
-           (context 1 =1) nil,
-           (context 1 =1 :sep) nil}
+           (pretext 1 =1) [[0 1]],
+           (pretext 1 =1 :sep) [0 1],
+           (postext 1 =1) [[1]],
+           (postext 1 =1 :sep) [1],
+           (context 1 =1) [[0 1]],
+           (context 1 =1 :sep) [0 1]}
           {:input [1 1 0 0 0 0 1 0],
-           (pretext 1 =1) nil,
-           (pretext 1 =1 :sep) nil,
-           (postext 1 =1) nil,
-           (postext 1 =1 :sep) nil,
-           (context 1 =1) nil,
-           (context 1 =1 :sep) nil}
+           (pretext 1 =1) [[1 1] [0 1]],
+           (pretext 1 =1 :sep) [1 1 :sep 0 1],
+           (postext 1 =1) [[1 1 0] [1 0]],
+           (postext 1 =1 :sep) [1 1 0 :sep 1 0],
+           (context 1 =1) [[1 1 0] [0 1 0]],
+           (context 1 =1 :sep) [1 1 0 :sep 0 1 0]}
           {:input [0 1 1 0 0 1 1 0 0],
-           (pretext 1 =1) nil,
-           (pretext 1 =1 :sep) nil,
-           (postext 1 =1) nil,
-           (postext 1 =1 :sep) nil,
+           (pretext 1 =1) [[0 1 1] [0 1 1]],
+           (pretext 1 =1 :sep) [0 1 1 :sep 0 1 1],
+           (postext 1 =1) [[1 1 0] [1 1 0]],
+           (postext 1 =1 :sep) [1 1 0 :sep 1 1 0 :sep],
            (context 1 =1) nil,
            (context 1 =1 :sep) nil}))
 
