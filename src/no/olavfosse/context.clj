@@ -79,7 +79,6 @@
              (filter (partial not= [::separator]))))
   ([n pred separator]
    (fn [rf]
-     (println "newrf")
      (let [!context-trail (java.util.LinkedList.)
            !inputs-since-match (volatile! ##Inf)]
        (fn
@@ -87,8 +86,6 @@
          ([acc] (rf acc))
          ([acc inp]
           (vswap! !inputs-since-match inc)
-          (println "incced" @!inputs-since-match n)
-          (println 'inp inp)
           (cond
             (pred inp) (let [acc (cond-> acc
                                    (and (not= @!inputs-since-match ##Inf)
@@ -98,10 +95,8 @@
                                         ;; the next context span
 
                                         ;; might be off by one or something, i i'll just test to find out
-                                        (> @!inputs-since-match (* 2 n))) (rf separator))]
-                         (println "reset" @!inputs-since-match)
+                                        (> @!inputs-since-match (inc (* 2 n)))) (rf separator))]
                          (vreset! !inputs-since-match 0)
-                         (println "afterreset" @!inputs-since-match)
                          (loop [acc acc]
                            (if-some [trail-inp (.pollLast !context-trail)]
                              (let [rv (rf acc trail-inp)]
@@ -203,8 +198,8 @@
            (pretext 1 =1 :sep) [0 1 :sep 0 1],
            (postext 1 =1) [[1 0] [1]],
            (postext 1 =1 :sep) [1 0 :sep 1],
-           (context 1 =1) [[0 1 0] [0 1]],
-           (context 1 =1 :sep) [0 1 0 :sep 0 1]}
+           (context 1 =1) [[0 1 0 0 1]],
+           (context 1 =1 :sep) [0 1 0 0 1]}
           {:input [1 1 1 0 0 0],
            (pretext 1 =1) [[1 1 1]],
            (pretext 1 =1 :sep) [1 1 1],
@@ -232,7 +227,6 @@
            (postext 1 =1) [[1 1 0] [1 1 0]],
            (postext 1 =1 :sep) [1 1 0 :sep 1 1 0],
            (context 1 =1) [[0 1 1 0 0 1 1 0]],
-           ;; OB1?
            (context 1 =1 :sep) [0 1 1 0 0 1 1 0]}))
 
 (doseq [{:as tc input :input} tt]
