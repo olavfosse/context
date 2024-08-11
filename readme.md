@@ -45,4 +45,44 @@ Note that the separator is considerably more "real-time" in the sense that each 
 
 **Rich man's grep**
 
-:todo
+Using `context`, implementing `$ grep -C n regex file` is a one liner:
+
+```clj
+> (transduce
+   (pretext 1 (partial re-matches #".*context.*") "--")
+   (completing #(println %2))
+   nil
+   (line-seq (clojure.java.io/reader "readme.md")))
+\```clj
+no.olavfosse/context {:git/url "https://github.com/olavfosse/context"
+--
+# Olav's Context Transducers
+no.olavfosse/context is a Clojure library providing three transducers
+`pretext`, `postext` and `context`. These transducers filter their input
+--
+
+Specifically `pretext` forwards trailing context, `postext` forwards leading context and
+`context` forwards both trailing and leading context.
+--
+
+**Span arity:** `(context pred n)`
+
+This forwards the contextualized matches in the form of vector
+spans. Each span is a sequence of adjacent items to be forwarded. Note that if the context of two or more matches overlap, they will be delivered in the same span.
+--
+\```clj
+> (into [] (context 2 (partial = 1)) [1 0 0 0 0 0 1 0 1 1 0])
+--
+
+**Separator arity:** `(context pred n separator)`
+--
+\```clj
+> (into [] (context 2 (partial = 1) :sep) [1 0 0 0 0 0 1 0 1 1 0])
+--
+\```
+Note that the separator is considerably more "real-time" in the sense that each match or context item is forwarded immediately, rather than having to wait until the whole vector span is created. For some use cases this matters. This detail is part of the library's contract.
+--
+
+Using `context`, implementing `$ grep -C n regex file` is a one liner:
+--
+```
