@@ -51,7 +51,6 @@
                       (if (reduced? rv) rv (recur rv)))
                     (rf acc inp))))))))))))
 
-
 (defn context
   "Returns a stateful transducer which forwards all elements matching
   pred as well as up to n elements trailing or leading each match. Each
