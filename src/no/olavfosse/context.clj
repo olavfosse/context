@@ -1,5 +1,3 @@
-;; This code is hairy for a reason, if you think you can simplify
-;; it, first try enumerating the edge cases. Good luck!
 (ns no.olavfosse.context
   (:import java.util.LinkedList))
 
@@ -55,6 +53,11 @@
 
 
 (defn context
+  "Returns a stateful transducer which forwards all elements matching
+  pred as well as up to n elements trailing or leading each match. Each
+  contionous span of forwarded elements is delivered as a vector. If
+  separator is passed the elements are forwarded directly, separated
+  by separator."
   ([n pred] (comp
              (context n pred ::separator)
              (partition-by (partial = ::separator))
@@ -117,4 +120,3 @@
               (= @!inputs-since-match (inc n)) (do (vreset! !separate-next? true)
                                                    acc)
               :else acc))))))))
-
