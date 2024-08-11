@@ -33,4 +33,4 @@ Note that the separator is considerally more "real-time" in the sense that each 
 
 ## Examples
 
-Rich man's grep
+**Rich man's grep**
