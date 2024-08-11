@@ -133,7 +133,8 @@
 
 (def =1 (partial = 1))
 
-(def tt '({:input [],
+(def tt '(;; n = 1
+          {:input [],
            (pretext 1 =1) [],
            (pretext 1 =1 :sep) [],
            (postext 1 =1) [],
@@ -225,7 +226,30 @@
            (postext 0 =1) [[1] [1] [1] [1]],
            (postext 0 =1 :sep) [1 :sep 1 :sep 1 :sep 1],,
            (context 0 =1) [[1] [1] [1] [1]],
-           (context 0 =1 :sep) [1 :sep 1 :sep 1 :sep 1]}))
+           (context 0 =1 :sep) [1 :sep 1 :sep 1 :sep 1]}
+
+          ;; n = 2
+          {:input [],
+           (pretext 2 =1) [],
+           (pretext 2 =1 :sep) [],
+           (postext 2 =1) [],
+           (postext 2 =1 :sep) [],
+           (context 2 =1) [],
+           (context 2 =1 :sep) []}
+          {:input [1],
+           (pretext 2 =1) [[1]],
+           (pretext 2 =1 :sep) [1],
+           (postext 2 =1) [[1]],
+           (postext 2 =1 :sep) [1],
+           (context 2 =1) [[1]],
+           (context 2 =1 :sep) [1]}
+          {:input [0 1 1 0 0 1 1 0 0],
+           (pretext 2 =1) [[0 1 1 0 0 1 1]],
+           (pretext 2 =1 :sep) [0 1 1 0 0 1 1],
+           (postext 2 =1) [[1 1 0 0 1 1 0 0]],
+           (postext 2 =1 :sep) [1 1 0 0 1 1 0 0],,
+           (context 2 =1) [[0 1 1 0 0 1 1 0 0]],
+           (context 2 =1 :sep) [0 1 1 0 0 1 1 0 0]}))
 
 (do 
   (doseq [{:as tc input :input} tt]
