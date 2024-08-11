@@ -7,7 +7,8 @@ are forwarded as well as the `n` items trailing or leading `x`.
 Specifically `pretext` forwards trailing context, `postext` forwards leading context and
 `context` forwards both trailing and leading context.
 
-![Illustration](./illustration.png)
+<img src="./illustration.png"  width="600"/>
+# ![Illustration](./illustration.png)
 
 All three functions support the same two arities:
 
