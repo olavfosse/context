@@ -2,6 +2,10 @@ I will soon make a proper release and commit to backwards compatibility.
 
 Before that I am looking for thoughts and feedback, especially on the API and docs. If you have any, please tell me before I pull out my masonry chisel 😊!
 
+```clj
+no.olavfosse/context {:git/url "https://github.com/olavfosse/context"
+                      :git/sha "86173d6cf52c0713867a500aa62c3868c595f659"}
+```
 ---
 
 # Olav's Context Transducers
