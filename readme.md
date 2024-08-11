@@ -11,12 +11,12 @@ Specifically `pretext` forwards trailing context, `postext` forwards leading con
 
 All three functions support the same two arities:
 
-Span arity: `(context pred n)`
+**Span arity:** `(context pred n)`
 
 This forwards the contextualized matches in the form of vector
-spans. A span is a sequence of adjacent items to be forwarded.
+spans. Each span is a sequence of adjacent items to be forwarded. Note that if the context of two or more matches overlap, they will be delivered in the same span.
 
 ```clj
-no.olavfosse.context> (into [] (context 2 (partial = 1)) [1 0 0 0 0 0 1 0 1 1 0])
+> (into [] (context 2 (partial = 1)) [1 0 0 0 0 0 1 0 1 1 0])
 [[1 0 0] [0 0 1 0 1 1 0]]
 ```
