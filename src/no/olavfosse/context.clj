@@ -74,12 +74,6 @@
             (cond
               (pred inp) (let [acc (cond-> acc
                                      (and (not= @!inputs-since-match ##Inf)
-                                          ;; This condition has to
-                                          ;; change, since the current
-                                          ;; input might also be part of
-                                          ;; the next context span
-
-                                          ;; might be off by one or something, i i'll just test to find out
                                           (> @!inputs-since-match (inc (* 2 n)))) (rf separator))]
                            (vreset! !inputs-since-match 0)
                            (loop [acc acc]
