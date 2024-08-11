@@ -74,11 +74,12 @@
 
 (defn context
   ([n pred] (comp
-             (pretext n pred ::separator)
+             (context n pred ::separator)
              (partition-by (partial = ::separator))
              (filter (partial not= [::separator]))))
   ([n pred separator]
    (fn [rf]
+     (println "newrf")
      (let [!context-trail (java.util.LinkedList.)
            !inputs-since-match (volatile! ##Inf)]
        (fn
@@ -86,6 +87,8 @@
          ([acc] (rf acc))
          ([acc inp]
           (vswap! !inputs-since-match inc)
+          (println "incced" @!inputs-since-match n)
+          (println 'inp inp)
           (cond
             (pred inp) (let [acc (cond-> acc
                                    (and (not= @!inputs-since-match ##Inf)
@@ -96,7 +99,9 @@
 
                                         ;; might be off by one or something, i i'll just test to find out
                                         (> @!inputs-since-match (* 2 n))) (rf separator))]
+                         (println "reset" @!inputs-since-match)
                          (vreset! !inputs-since-match 0)
+                         (println "afterreset" @!inputs-since-match)
                          (loop [acc acc]
                            (if-some [trail-inp (.pollLast !context-trail)]
                              (let [rv (rf acc trail-inp)]
@@ -148,11 +153,7 @@
    (list 'context 1 '=1) nil
    (list 'context 1 '=1 :sep) nil})
 
-(doseq [{:as tc input :input} tt]
-  (doseq [[k v] tc]
-    (when-not (= k :input)
-      (when v
-        (eval `(assert (= (into [] ~k ~input) ~v)))))))
+
 
 (def tt '({:input [],
            (pretext 1 =1) [],
@@ -224,4 +225,12 @@
            (postext 1 =1 :sep) nil,
            (context 1 =1) nil,
            (context 1 =1 :sep) nil}))
+
+(doseq [{:as tc input :input} tt]
+  (doseq [[k v] tc]
+    (when-not (= k :input)
+      (when v
+        (eval `(assert (= (into [] ~k ~input)
+                          ~(into [] (eval k) input)
+                          ~v)))))))
     
