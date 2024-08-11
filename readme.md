@@ -8,7 +8,6 @@ Specifically `pretext` forwards trailing context, `postext` forwards leading con
 `context` forwards both trailing and leading context.
 
 <img src="./illustration.png"  width="600"/>
-# ![Illustration](./illustration.png)
 
 All three functions support the same two arities:
 
