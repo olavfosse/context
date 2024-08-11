@@ -1,4 +1,10 @@
-# no.olavfosse/context
+I will soon make a proper release and commit to backwards compatibility.
+
+Before that I am looking for thoughts and feedback, especially on the API and docs. If you have any, please tell me before I pull out my masonry chisel 😊!
+
+---
+
+# Olav's Context Transducers
 no.olavfosse/context is a Clojure library providing three transducers
 `pretext`, `postext` and `context`. These transducers filter their input
 items based on a predicate `pred` such that the items for which `(pred x)` is true
@@ -9,7 +15,7 @@ Specifically `pretext` forwards trailing context, `postext` forwards leading con
 
 <img src="./illustration.png"  width="600"/>
 
-All three functions support the same two arities:
+All three functions support the same two arities.
 
 **Span arity:** `(context pred n)`
 
@@ -29,8 +35,9 @@ This forwards the spans directly, without wrapping them in vectors. Each span is
 > (into [] (context 2 (partial = 1) :sep) [1 0 0 0 0 0 1 0 1 1 0])
 [1 0 0 :sep 0 0 1 0 1 1 0]
 ```
-Note that the separator is considerally more "real-time" in the sense that each match or context item is forwarded immediately, rather than having to wait until the whole vector span is created. For some use cases this matters. This detail is part of the library's contract.
+Note that the separator is considerably more "real-time" in the sense that each match or context item is forwarded immediately, rather than having to wait until the whole vector span is created. For some use cases this matters. This detail is part of the library's contract.
 
 ## Examples
 
 **Rich man's grep**
+:todo
