@@ -1,11 +1,11 @@
 # no.olavfosse/context
 no.olavfosse/context is a Clojure library providing three transducers
-`pretext`, `postext` and `context`. These transducers let you filter
-based on a predicate in such a way that the surounding context is
-kept.
+`pretext`, `postext` and `context`. These transducers filter their input
+items based on a predicate `pred` such that the items for which `(pred x)` is true
+are forwarded as well as the `n` items trailing or leading `x`.
 
-`pretext` keeps trailing context, `postext` keeps leading context and
-`context` keeps both trailing and leading context.
+Specifically `pretext` forwards trailing context, `postext` forwards leading context and
+`context` forwards both trailing and leading context.
 
 ![Illustration](./illustration.png)
 
