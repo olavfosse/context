@@ -20,3 +20,13 @@ spans. Each span is a sequence of adjacent items to be forwarded. Note that if t
 > (into [] (context 2 (partial = 1)) [1 0 0 0 0 0 1 0 1 1 0])
 [[1 0 0] [0 0 1 0 1 1 0]]
 ```
+
+**Separator arity:** `(context pred n separator)`
+
+This forwards the spans directly, without wrapping them in vectors. Each span is separated by `separator`.
+
+```clj
+> (into [] (context 2 (partial = 1) :sep) [1 0 0 0 0 0 1 0 1 1 0])
+[1 0 0 :seq 0 0 1 0 1 1 0]
+```
+Note that the separator is considerally more "real-time" in the sense that each match or context item is forwarded immediately, rather than having to wait until the whole vector span is created. For some use cases this matters. This detail is part of the library's contract.
