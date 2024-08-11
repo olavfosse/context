@@ -123,7 +123,8 @@
 	          (filter (partial not= [::separator]))))
   ([n pred separator]
    (fn [rf]
-     (let [!inputs-since-match (volatile! ##Inf)]
+     (let [!inputs-since-match (volatile! ##Inf)
+           !separate-next? (volatile! false)]
        (fn
          ([] (rf))
          ([acc] (rf acc))
@@ -131,13 +132,23 @@
           (vswap! !inputs-since-match inc)
           (cond
             (pred inp) (let [acc (cond-> acc
-                                   (and (not= @!inputs-since-match ##Inf)
-                                        (> @!inputs-since-match (inc n))) (rf separator))]
+                                   @!separate-next? (rf separator))]
+                         (vreset! !separate-next? false)
                          (vreset! !inputs-since-match 0)
                          (rf acc inp))
             (<= @!inputs-since-match n) (rf acc inp)
+            (= @!inputs-since-match (inc n)) (do (vreset! !separate-next? true)
+                                                 acc)
             :else acc)))))))
 
+
+
+;; Quality Assurance.
+;;
+;; Things which are not tested for and must be kept in mind:
+;; - n = 0
+;; - whether we truly emit asap
+;;
 
 
 ;; generate tests
@@ -219,9 +230,10 @@
            (pretext 1 =1) [[0 1 1] [0 1 1]],
            (pretext 1 =1 :sep) [0 1 1 :sep 0 1 1],
            (postext 1 =1) [[1 1 0] [1 1 0]],
-           (postext 1 =1 :sep) [1 1 0 :sep 1 1 0 :sep],
-           (context 1 =1) nil,
-           (context 1 =1 :sep) nil}))
+           (postext 1 =1 :sep) [1 1 0 :sep 1 1 0],
+           (context 1 =1) [[0 1 1 0 0 1 1 0]],
+           ;; OB1?
+           (context 1 =1 :sep) [0 1 1 0 0 1 1 0]}))
 
 (doseq [{:as tc input :input} tt]
   (doseq [[k v] tc]
