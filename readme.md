@@ -48,6 +48,11 @@ Note that the separator is considerably more "real-time" in the sense that each 
 Using `context`, implementing `$ grep -C n regex file` is a one liner:
 
 ```clj
+> (transduce
+   (context 1 (partial re-matches #".*context.*") "--")
+   (completing #(println %2))
+   nil
+   (line-seq (clojure.java.io/reader "readme.md")))
 \```clj
 no.olavfosse/context {:git/url "https://github.com/olavfosse/context"
                       :git/sha "86173d6cf52c0713867a500aa62c3868c595f659"}
