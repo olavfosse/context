@@ -1,6 +1,6 @@
 I will soon make a proper release and commit to backwards compatibility.
 
-Before that I am looking for thoughts and feedback, especially on the API and docs. If you have any, please tell me before I pull out my chisel 😊!
+Before that I am looking for thoughts and feedback, especially on the API and docs.
 
 ```clj
 no.olavfosse/context {:git/url "https://github.com/olavfosse/context"
