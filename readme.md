@@ -21,7 +21,7 @@ Specifically `pretext` forwards trailing context, `postext` forwards leading con
 
 All three functions support the same two arities.
 
-**Span arity:** `(context pred n)`
+**Span arity:** `(context n pred)`
 
 This forwards the contextualized matches in the form of vector
 spans. Each span is a sequence of adjacent items to be forwarded. Note that if the context of two or more matches overlap, they will be delivered in the same span.
@@ -31,7 +31,7 @@ spans. Each span is a sequence of adjacent items to be forwarded. Note that if t
 [[1 0 0] [0 0 1 0 1 1 0]]
 ```
 
-**Separator arity:** `(context pred n separator)`
+**Separator arity:** `(context n pred separator)`
 
 This forwards the spans directly, without wrapping them in vectors. Each span is separated by `separator`.
 
@@ -68,7 +68,7 @@ Specifically `pretext` forwards trailing context, `postext` forwards leading con
 
 --
 
-**Span arity:** `(context pred n)`
+**Span arity:** `(context n pred)`
 
 This forwards the contextualized matches in the form of vector
 spans. Each span is a sequence of adjacent items to be forwarded. Note that if the context of two or more matches overlap, they will be delivered in the same span.
@@ -78,7 +78,7 @@ spans. Each span is a sequence of adjacent items to be forwarded. Note that if t
 [[1 0 0] [0 0 1 0 1 1 0]]
 --
 
-**Separator arity:** `(context pred n separator)`
+**Separator arity:** `(context n pred separator)`
 
 --
 \```clj
