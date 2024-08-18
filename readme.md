@@ -4,7 +4,7 @@ Before that I am looking for thoughts and feedback, especially on the API and do
 
 ```clj
 no.olavfosse/context {:git/url "https://github.com/olavfosse/context"
-                      :git/sha "86173d6cf52c0713867a500aa62c3868c595f659"}
+                      :git/sha "38e8c66ada9b78e5b582d7523191f840a1afe24b"}
 ```
 ---
 
