@@ -1,5 +1,42 @@
 (ns no.olavfosse.context
-  (:import java.util.LinkedList))
+  (:import #?(:clj java.util.LinkedList
+              :lpy collections)))
+
+(do
+  ;;    IMPLEMENTATION DETAILS
+  ;; ============================
+  ;;
+  ;; To implement no.olavfosse.context for a new platform simply
+  ;; implement the mutable-list (adhoc) interface below.
+  ;;
+  ;; Fwiw, the interface is not thought out at all. I merely replaced
+  ;; the original java.util.LinkedList invocations with mutable-list
+  ;; equivalents.
+  ;;
+  ;;
+  ;; FIXME(blocked-by=https://github.com/basilisp-lang/basilisp/issues/1105):
+  ;;
+  ;; I wanted to use the ml:<fnname> syntax, but the basilisp doesn't
+  ;; parse that as a symbol.
+  ;;
+  ;; java.util.LinkedList/.method makes Basilisp freak out, for now I
+  ;; just do .method.
+  (defn- mutable-list []
+    #?(:clj (java.util.LinkedList.)
+       :lpy (collections/deque)))
+  (defn- ml-add-first! [ml x]
+    #?(:clj (.addFirst ml x)
+       :lpy (.appendleft ml x)))
+  (defn- ml-remove-last! [ml]
+    #?(:clj (.removeLast ml)
+       :lpy (.pop ml)))
+  (defn- ml-poll-last! [ml]
+    #?(:clj (.pollLast ml)
+       :lpy (try (.pop ml)
+                 (catch python/IndexError _ nil))))
+  (defn- ml-size [ml]
+    #?(:clj (.size ml)
+       :lpy (python/len ml))))
 
 (defn pretext
   "Returns a stateful transducer which forwards all elements matching
@@ -16,7 +53,7 @@
      (comp (filter pred)
            (interpose separator))
      (fn [rf]
-       (let [!context-trail (java.util.LinkedList.)
+       (let [!context-trail (mutable-list)
              ;; There's two tricky edge cases which we use variables to
              ;; handle.
              ;;           
@@ -34,9 +71,9 @@
             ;; context span and are about to forward an element from the
             ;; next span.
             (if-not (pred inp)
-              (do (.addFirst !context-trail inp)
-                  (when (= (.size !context-trail) (inc n))
-                    (.removeLast !context-trail)
+              (do (ml-add-first! !context-trail inp)
+                  (when (= (ml-size !context-trail) (inc n))
+                    (ml-remove-last! !context-trail)
                     (vreset! !separate-next? (not @!nothing-forwarded?)))
                   acc)
               (do
@@ -46,7 +83,7 @@
                                (vreset! !separate-next? false)
                                (rf acc separator))
                              acc)]
-                  (if-some [trail-inp (.pollLast !context-trail)]
+                  (if-some [trail-inp (ml-poll-last! !context-trail)]
                     (let [rv (rf acc trail-inp)]
                       (if (reduced? rv) rv (recur rv)))
                     (rf acc inp))))))))))))
@@ -66,7 +103,7 @@
      (comp (filter pred)
            (interpose separator))
      (fn [rf]
-       (let [!context-trail (java.util.LinkedList.)
+       (let [!context-trail (mutable-list)
              !inputs-since-match (volatile! ##Inf)]
          (fn
            ([] (rf))
@@ -79,14 +116,14 @@
                                           (> @!inputs-since-match (inc (* 2 n)))) (rf separator))]
                            (vreset! !inputs-since-match 0)
                            (loop [acc acc]
-                             (if-some [trail-inp (.pollLast !context-trail)]
+                             (if-some [trail-inp (ml-poll-last! !context-trail)]
                                (let [rv (rf acc trail-inp)]
                                  (if (reduced? rv) rv (recur rv)))
                                (rf acc inp))))
               (<= @!inputs-since-match n) (rf acc inp)
-              :else (do (.addFirst !context-trail inp)
-                        (when (= (.size !context-trail) (inc n))
-                          (.removeLast !context-trail))
+              :else (do (ml-add-first! !context-trail inp)
+                        (when (= (ml-size !context-trail) (inc n))
+                          (ml-remove-last! !context-trail))
                         acc)))))))))
 
 (defn postext
