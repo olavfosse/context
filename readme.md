@@ -34,13 +34,13 @@ Note that the separator is considerably more "real-time" in the sense that each 
 
 ## Installation
 
-**Clojure**
+### Clojure
 ```edn
 no.olavfosse/context {:git/url "https://github.com/olavfosse/context"
                       :git/sha "1b211dba539455e6088bc278dbdf8e5467598f26"}
 ```
 
-**Basilisp**
+### Basilisp
 ```sh
 $ pip install git+https://github.com/olavfosse/context.git
 ```
@@ -91,15 +91,3 @@ spans. Each span is a sequence of adjacent items to be forwarded. Note that if t
 \```
 Note that the separator is considerably more "real-time" in the sense that each match or context item is forwarded immediately, rather than having to wait until the whole vector span is created. For some use cases this matters. This detail is part of the library's contract.
 ```
-
-## Hosts
-
-- Clojure
-- Basilisp
-
-Feel free to request if you would like an additional host!
-
-## Going forwards
-- More runtimes
-- Benchmark -> optimizations
-- Solidify the API
