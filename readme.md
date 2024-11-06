@@ -1,14 +1,5 @@
-I will soon make a proper release and commit to backwards compatibility.
-
-Before that I am looking for thoughts and feedback, especially on the API and docs.
-
-```clj
-no.olavfosse/context {:git/url "https://github.com/olavfosse/context"
-                      :git/sha "38e8c66ada9b78e5b582d7523191f840a1afe24b"}
-```
----
-
 # Olav's Context Transducers
+
 no.olavfosse/context is a Clojure library providing three transducers
 `pretext`, `postext` and `context`. These transducers filter their input
 items based on a predicate `pred` such that the items for which `(pred x)` is true
@@ -40,6 +31,19 @@ This forwards the spans directly, without wrapping them in vectors. Each span is
 [1 0 0 :sep 0 0 1 0 1 1 0]
 ```
 Note that the separator is considerably more "real-time" in the sense that each match or context item is forwarded immediately, rather than having to wait until the whole vector span is created. For some use cases this matters. This detail is part of the library's contract.
+
+## Installing
+
+Clojure
+```edn
+no.olavfosse/context {:git/url "https://github.com/olavfosse/context"
+                      :git/sha "1b211dba539455e6088bc278dbdf8e5467598f26"}
+```
+
+Basilisp
+```sh
+$ pip install git+https://github.com/olavfosse/context.git
+```
 
 ## Examples
 
@@ -94,3 +98,8 @@ Note that the separator is considerably more "real-time" in the sense that each 
 - Basilisp
 
 Feel free to request if you would like an additional host!
+
+## Going forwards
+- More runtimes
+- Benchmark -> optimizations
+- Solidify the API
