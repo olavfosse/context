@@ -5,6 +5,9 @@ no.olavfosse/context is a Clojure library providing three transducers
 items based on a predicate `pred` such that the items for which `(pred x)` is true
 are forwarded as well as the `n` items trailing or leading `x`.
 
+As per v1.0, no.olavfosse/context is a stable library and will not
+introduce any breaking changes to the API.
+
 Specifically `pretext` forwards trailing context, `postext` forwards leading context and
 `context` forwards both trailing and leading context.
 
@@ -37,7 +40,8 @@ Note that the separator is considerably more "real-time" in the sense that each 
 ### Clojure
 ```edn
 no.olavfosse/context {:git/url "https://github.com/olavfosse/context"
-                      :git/sha "1b211dba539455e6088bc278dbdf8e5467598f26"}
+                      :git/sha "215ca3ee53ca6208f718ca77ac83beeea0d69d51"
+                      :git/tag "v1.0"}
 ```
 
 ### Basilisp
