@@ -40,7 +40,7 @@ Note that the separator is considerably more "real-time" in the sense that each 
 ### Clojure
 ```edn
 no.olavfosse/context {:git/url "https://github.com/olavfosse/context"
-                      :git/sha "215ca3ee53ca6208f718ca77ac83beeea0d69d51"
+                      :git/sha "954aad72de87cb1e072ee91e505efe57e35539ab"
                       :git/tag "v1.0"}
 ```
 
