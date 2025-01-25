@@ -3,6 +3,13 @@
               :lpy collections)))
 
 (do
+  ;; 25. Jan 2025
+  ;;
+  ;; It struck me just now that I might be able to circumvent having
+  ;; to use host interop. Actually no that wouldn't work. But it is an
+  ;; interesting idea as they are essentially the only built-in
+  ;; mutable data structures.
+  
   ;;    IMPLEMENTATION DETAILS
   ;; ============================
   ;;
