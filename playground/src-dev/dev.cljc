@@ -16,7 +16,7 @@
      (def config
        (merge
          {:host "localhost"
-          :port 8080
+          :port 8082
           :resources-path "public/electric_starter_app"
           :manifest-path ; contains Electric compiled program's version so client and server stays in sync
           "public/electric_starter_app/js/manifest.edn"}))

@@ -20,7 +20,7 @@
     ;; Server is therefore aware of the program version.
     ;; The client's version is injected in the compiled .js file.
     (comptime-resource "electric-manifest.edn")
-    {:host "0.0.0.0", :port 8080,
+    {:host "0.0.0.0", :port 8082,
      :resources-path "public/electric_starter_app"
      ;; shadow build manifest path, to get the fingerprinted main.sha1.js file to ensure cache invalidation
      :manifest-path "public/electric_starter_app/js/manifest.edn"}))
