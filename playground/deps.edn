@@ -5,6 +5,9 @@
            ch.qos.logback/logback-classic {:mvn/version "1.4.14"}
            ring/ring                      {:mvn/version "1.11.0"} ; to serve the app
            ring-basic-authentication/ring-basic-authentication {:mvn/version "1.2.0"} ; for demo
+           no.olavfosse/context {:git/url "https://github.com/olavfosse/context"
+                                 :git/sha "954aad72de87cb1e072ee91e505efe57e35539ab"
+                                 :git/tag "v1.0"}
            }
  :paths   ["src" "resources"]
  :aliases {:dev {:extra-paths ["src-dev"]
