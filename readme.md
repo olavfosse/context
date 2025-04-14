@@ -11,7 +11,9 @@ introduce any breaking changes to the API.
 Specifically `pretext` forwards trailing context, `postext` forwards leading context and
 `context` forwards both trailing and leading context.
 
-<img src="./illustration.png"  width="600"/>
+<img src="./illustration.png" width="600"/>
+
+[Playground](https://tasty-jelly-88.apps.garden)
 
 All three functions support the same two arities.
 
