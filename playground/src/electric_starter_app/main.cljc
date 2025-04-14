@@ -19,9 +19,12 @@
                      context-width (e/watch !context-width)]
                  search context-width
                  (dom/div (dom/code (dom/text "(context ")
-                                    (reset! !context-width (abs (parse-long (Input 0 :type "range"
-                                                                                   :max 10
-                                                                                   :style {:vertical-align :middle}))))
+                                    ;; It would be interesting to have
+                                    ;; it display as data by default
+                                    ;; and then when you hover over
+                                    ;; it, it turns to a graphical
+                                    ;; manipulator.
+                                    (reset! !context-width (abs (parse-long (Input 0 :type "range", :max 10, :style {:vertical-align :middle}))))
                                     (dom/text " #(str/includes? % ")
                                     (reset! !search (Input search))
                                     (dom/text ") \"\\n---\\n\")")))
