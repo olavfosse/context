@@ -10,7 +10,7 @@
 * Shell: `clj -A:dev -X dev/-main`. 
 * Login instructions will be printed
 * REPL: `:dev` deps alias, `(dev/-main)` at the REPL to start dev build
-* App will start on http://localhost:8082
+* App will start on http://localhost:7777
 * Electric root function: [src/electric_starter_app/main.cljc](src/electric_starter_app/main.cljc)
 * Hot code reloading works: edit -> save -> see app reload in browser
 
@@ -25,7 +25,7 @@ java -cp target/app.jar clojure.main -m prod
 
 # Docker
 docker build -t electric3-starter-app:latest .
-docker run --rm -it -p 8082:8082 electric3-starter-app:latest
+docker run --rm -it -p 7777:7777 electric3-starter-app:latest
 ```
 
 ## License

@@ -10,8 +10,12 @@
  :aliases {:dev {:extra-paths ["src-dev"]
                  :extra-deps  {thheller/shadow-cljs {:mvn/version "2.26.2"}}}
 
+           ;; HACK TO GET Garden WORKING:
            :prod {:extra-paths ["src-prod"]
-                  :extra-deps {com.google.javascript/closure-compiler-unshaded {:mvn/version "v20230802"}}} ; deps conflict
+                  :extra-deps {com.google.javascript/closure-compiler-unshaded {:mvn/version "v20230802"}}}
+           :nextjournal/garden {:extra-paths ["src-prod"]
+                                :extra-deps {com.google.javascript/closure-compiler-unshaded {:mvn/version "v20230802"}}
+                                :exec-fn prod/-main} ; deps conflict
 
            :build ; use `clj -X:build build-client`, NOT -T!
            {:extra-paths ["src-build"]

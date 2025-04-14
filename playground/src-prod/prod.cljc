@@ -7,6 +7,7 @@
             electric-starter-app.main
             #?(:clj [electric-starter-app.server-jetty :as jetty])
             [hyperfiddle.electric3 :as e]
+            #?(:clj [clojure.java.shell :refer [sh]])
             #?(:cljs [hyperfiddle.electric-client3])))
 
 (defmacro comptime-resource [filename]
@@ -20,13 +21,14 @@
     ;; Server is therefore aware of the program version.
     ;; The client's version is injected in the compiled .js file.
     (comptime-resource "electric-manifest.edn")
-    {:host "0.0.0.0", :port 8082,
+    {:host "0.0.0.0", :port 7777,
      :resources-path "public/electric_starter_app"
      ;; shadow build manifest path, to get the fingerprinted main.sha1.js file to ensure cache invalidation
      :manifest-path "public/electric_starter_app/js/manifest.edn"}))
 
 #?(:clj ; server entrypoint
    (defn -main [& {:strs [] :as args}] ; clojure.main entrypoint, args are strings
+     (sh "clj" "-X:build:prod" "build-client") ;; HACK: I don't know how else to tell Garden to run this 🤷‍♂️
      (alter-var-root #'config #(merge % args))
      (log/info (pr-str config))
      (check string? (:hyperfiddle.electric-ring-adapter3/electric-user-version config))
